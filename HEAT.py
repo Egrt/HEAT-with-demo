@@ -2,7 +2,7 @@
 Author: [egrt]
 Date: 2022-08-23 11:44:15
 LastEditors: [egrt]
-LastEditTime: 2022-08-23 13:21:18
+LastEditTime: 2022-08-23 13:41:55
 Description: HEAT的模型加载与预测
 '''
 import torch
@@ -25,17 +25,9 @@ class HEAT(object):
     #-----------------------------------------#
     _defaults = {
         #-----------------------------------------------#
-        #   backbone指向主干特征提取网络的地址
+        #  model_data指向整体网络的地址
         #-----------------------------------------------#
-        "backbone"            : 'model_data/G_FFHQ.pth',
-        #-----------------------------------------------#
-        #   corner_model指向焦点检测网络地址
-        #-----------------------------------------------#
-        "corner_model"        : 'model_data/G_FFHQ.pth',
-        #-----------------------------------------------#
-        #   edge_model指向边缘检测网络地址
-        #-----------------------------------------------#
-        "edge_model"          : 'model_data/G_FFHQ.pth',
+        "model_data"        : 'model_data/checkpoints/ckpts_heat_outdoor_256/checkpoint.pth',
         #-----------------------------------------------#
         #   image_shape模型预测图像的像素大小
         #-----------------------------------------------#
@@ -89,10 +81,10 @@ class HEAT(object):
         edge_model = edge_model.cuda()
         edge_model.eval()
         # 分别加载模型的地址
-        self.backbone     = backbone.load_state_dict(self.backbone)
-        self.corner_model = corner_model.load_state_dict(self.corner_model)
-        self.edge_model   = edge_model.load_state_dict(self.edge_model)
-
+        self.backbone     = backbone.load_state_dict(self.model_data['backbone'])
+        self.corner_model = corner_model.load_state_dict(self.model_data['corner_model'])
+        self.edge_model   = edge_model.load_state_dict(self.model_data['edge_model'])
+            
     def detect_one_image(self, image):
         #---------------------------------------------------------#
         #   在这里将图像转换成RGB图像，防止灰度图在预测时报错。

@@ -2,7 +2,7 @@
 Author: [egrt]
 Date: 2022-08-23 13:21:27
 LastEditors: [egrt]
-LastEditTime: 2022-08-23 13:22:19
+LastEditTime: 2022-08-23 13:45:21
 Description: 
 '''
 #--------------------------------------------------------------#
@@ -18,7 +18,7 @@ if __name__ == "__main__":
     #----------------------------#
     #   单张图片的保存路径
     #----------------------------#
-    save_path = "results/predict_out/predict_maskgan.png"
+    save_path = "assets/test_out.jpg"
 
     while True:
         img = input('Input image filename:')
